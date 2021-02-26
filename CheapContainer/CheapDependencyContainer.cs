@@ -8,7 +8,7 @@ namespace CheapContainer
     {
         private readonly Dictionary<Type, Type> mappings = new();
 
-        public void Register<TKey, TResult>()
+        public void Register<TKey, TResult>() where TResult : TKey
         {
             mappings.Add(typeof(TKey), typeof(TResult));
         }

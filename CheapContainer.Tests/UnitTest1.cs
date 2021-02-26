@@ -47,18 +47,4 @@ namespace CheapContainer.Tests
             result.Should().BeAssignableTo<IMyComplexService>();
         }
     }
-
-    public interface IMyComplexService
-    {
-    }
-
-    public class MyComplexService : IMyComplexService
-    {
-        public IMyOtherService OtherService { get; }
-
-        public MyComplexService(IMyOtherService otherService)
-        {
-            OtherService = otherService;
-        }
-    }
 }
