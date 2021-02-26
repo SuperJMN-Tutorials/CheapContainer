@@ -23,7 +23,7 @@ namespace CheapContainer
 
             var dependencyTypes = constructor.GetParameters().Select(x => x.ParameterType);
             var injectedInstances = dependencyTypes
-                .Select(Resolve).ToList();
+                .Select(Resolve);
 
             if (injectedInstances.Any())
             {
