@@ -36,5 +36,29 @@ namespace CheapContainer.Tests
             var result = sut.Resolve<IMyOtherService>();
             result.Name.Should().BeNull();
         }
+
+        [Fact]
+        public void Resolving_interface_of_complex_type()
+        {
+            var sut = new CheapDependencyContainer();
+            sut.Register<IMyOtherService, MyOtherService>();
+            sut.Register<IMyComplexService, MyComplexService>();
+            var result = sut.Resolve<IMyComplexService>();
+            result.Should().BeAssignableTo<IMyComplexService>();
+        }
+    }
+
+    public interface IMyComplexService
+    {
+    }
+
+    public class MyComplexService : IMyComplexService
+    {
+        public IMyOtherService OtherService { get; }
+
+        public MyComplexService(IMyOtherService otherService)
+        {
+            OtherService = otherService;
+        }
     }
 }
