@@ -1,7 +1,7 @@
 
 namespace CheapContainer
 {
-    public class MyService
+    public class MyService : IMyService
     {
     }
 }

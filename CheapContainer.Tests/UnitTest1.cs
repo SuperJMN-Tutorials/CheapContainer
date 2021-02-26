@@ -16,7 +16,7 @@ namespace CheapContainer.Tests
             var sut = new CheapDependencyContainer();
             sut.Register<IMyService, MyService>();
             var result = sut.Resolve<IMyService>();
-            result.Should().BeOfType<MyService>();
+            result.Should().BeAssignableTo<IMyService>();
         }
 
         [Fact]
@@ -25,9 +25,16 @@ namespace CheapContainer.Tests
             var sut = new CheapDependencyContainer();
             sut.Register<IMyOtherService, MyOtherService>();
             var result = sut.Resolve<IMyOtherService>();
-            result.Should().BeOfType<MyOtherService>();
+            result.Should().BeAssignableTo<IMyOtherService>();
+        }
+
+        [Fact]
+        public void Resolving_interface_myotherservice_creates_specific_instance_of_myotherservice()
+        {
+            var sut = new CheapDependencyContainer();
+            sut.Register<IMyOtherService, MyOtherService>();
+            var result = sut.Resolve<IMyOtherService>();
+            result.Name.Should().BeNull();
         }
     }
-
-    
 }

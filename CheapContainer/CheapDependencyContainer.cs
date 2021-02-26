@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 
@@ -6,19 +5,18 @@ namespace CheapContainer
 {
     public class CheapDependencyContainer
     {
-        private Dictionary<Type, Type> mappings = new();
+        private readonly Dictionary<Type, Type> mappings = new();
 
         public void Register<TKey, TResult>()
         {
             mappings.Add(typeof(TKey), typeof(TResult));
         }
 
-        public object Resolve<T>()
+        public T Resolve<T>()
         {
             var type = mappings[typeof(T)];
-
             var instance = Activator.CreateInstance(type);
-            return instance;
+            return (T) instance;
         }
     }
 }

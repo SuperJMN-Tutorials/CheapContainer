@@ -1,6 +1,7 @@
 namespace CheapContainer
 {
-    public class MyOtherService
+    public class MyOtherService : IMyOtherService
     {
+        public string Name { get; set; }
     }
 }
