@@ -15,8 +15,13 @@ namespace CheapContainer
 
         public object Resolve(Type type)
         {
-            var toConstruct = mappings[type];
+            var typeToBuild = mappings[type];
+            var toInject = GetInjectedInstances(typeToBuild);
+            return Activator.CreateInstance(typeToBuild, toInject.ToArray());
+        }
 
+        private IEnumerable<object> GetInjectedInstances(Type toConstruct)
+        {
             var constructor = toConstruct
                 .GetConstructors()
                 .FirstOrDefault();
@@ -24,13 +29,7 @@ namespace CheapContainer
             var dependencyTypes = constructor.GetParameters().Select(x => x.ParameterType);
             var injectedInstances = dependencyTypes
                 .Select(Resolve);
-
-            if (injectedInstances.Any())
-            {
-                return Activator.CreateInstance(toConstruct, injectedInstances.ToArray());
-            }
-
-            return Activator.CreateInstance(toConstruct);
+            return injectedInstances;
         }
 
         public T Resolve<T>()
